@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherWise - Interactive Map</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <button id="menu-toggle" class="glass-card">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <button id="location-btn" class="glass-card">
+        <i class="fas fa-crosshairs"></i>
+    </button>
+    
+    <div id="sidebar-backdrop"></div>
+
+    <aside id="sidebar" class="glass-card">
+        <div class="sidebar-header">
+            <h2>Dashboard</h2>
+            <button id="close-sidebar-btn">&times;</button>
+        </div>
+        
+        <div class="sidebar-content">
+            <section>
+                <h3><i class="fas fa-balance-scale-right mr-2"></i>Compare Cities</h3>
+                <div id="comparison-list">
+                    <p class="empty-list-msg">Add cities from the map to compare them here.</p>
+                </div>
+            </section>
+            
+            <section>
+                 <h3><i class="fas fa-share-alt mr-2"></i>Share Details</h3>
+                 <p class="share-info">Add cities to the comparison list to share their weather summary.</p>
+                 <button id="share-btn" disabled>Share Comparison</button>
+            </section>
+        </div>
+    </aside>
+
+    <div id="bottom-bar">
+        <div id="left-weather" class="side-weather"></div>
+
+        <div id="search-container" class="glass-card">
+            <input type="text" id="city-search" placeholder="Search for a city or village...">
+            <button id="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div id="right-weather" class="side-weather"></div>
+    </div>
+
+    <div id="share-modal" class="modal-container">
+        <div class="modal-content glass-card">
+            <button id="close-modal-btn" class="modal-close-btn">&times;</button>
+            <h3>Share Weather Summary</h3>
+            <p>Copy the text below to share the weather details.</p>
+            <textarea id="share-text" readonly></textarea>
+            <button id="copy-btn">
+                <i class="fas fa-copy mr-2"></i>Copy to Clipboard
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

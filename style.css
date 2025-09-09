@@ -1,0 +1,368 @@
+/* --- General & Body Styles --- */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    overflow: hidden; /* Prevent scrolling the page */
+}
+
+.glass-card {
+    background: rgba(26, 32, 44, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Map Container --- */
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1; /* Base layer */
+}
+
+/* --- Bottom Bar Layout --- */
+#bottom-bar {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 95%;
+    max-width: 900px;
+}
+
+#search-container {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    width: 100%;
+    max-width: 450px;
+    flex-shrink: 0;
+}
+
+#city-search {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+}
+#city-search::placeholder {
+    color: #a0aec0;
+}
+#city-search:focus {
+    outline: none;
+}
+
+#search-btn {
+    background: #3182ce;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#search-btn:hover {
+    background: #2b6cb0;
+}
+
+.side-weather {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    color: white;
+    width: 100%;
+    min-height: 70px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.5s;
+}
+.side-weather img {
+    width: 40px;
+    height: 40px;
+}
+.side-weather-info strong {
+    font-size: 18px;
+}
+.side-weather-info p {
+    font-size: 14px;
+    color: #a0aec0;
+}
+
+/* --- Control Buttons --- */
+#menu-toggle, #location-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    border: none;
+}
+#location-btn {
+    left: 80px;
+}
+
+/* --- Sidebar & Backdrop --- */
+#sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 19;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+#sidebar-backdrop.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    color: #e2e8f0;
+}
+#sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgba(45, 55, 72, 0.5);
+}
+.sidebar-header h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+#close-sidebar-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.sidebar-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+.sidebar-content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 8px;
+}
+
+.empty-list-msg, .share-info {
+    font-size: 14px;
+    color: #a0aec0;
+    padding: 10px;
+}
+
+#share-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #2b6cb0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#share-btn:disabled {
+    background: #4a5568;
+    cursor: not-allowed;
+}
+
+#comparison-list .city-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.05);
+}
+#comparison-list .remove-btn {
+    background: none;
+    border: none;
+    color: #e53e3e;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* --- Share Modal --- */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.modal-container.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    color: white;
+    position: relative;
+    text-align: center;
+}
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #a0aec0;
+    cursor: pointer;
+}
+
+.modal-content h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.modal-content p {
+    color: #a0aec0;
+    margin-bottom: 20px;
+}
+.modal-content textarea {
+    width: 100%;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    resize: none;
+    margin-bottom: 15px;
+}
+.modal-content button {
+    width: 100%;
+    padding: 12px;
+    background: #3182ce;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* --- Custom Map Styles --- */
+.leaflet-popup-content-wrapper {
+    background: rgba(26, 32, 44, 0.8) !important;
+    color: #e2e8f0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.leaflet-popup-tip {
+    background: rgba(26, 32, 44, 0.8) !important;
+}
+
+.weather-popup h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin: 0 0 5px;
+}
+.weather-popup p {
+    margin: 4px 0;
+}
+.weather-popup-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
+.weather-popup button {
+    padding: 8px 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    transition: opacity 0.3s;
+}
+.weather-popup button:hover {
+    opacity: 0.8;
+}
+
+.leaflet-control-zoom {
+    left: auto !important;
+    right: 20px !important;
+    top: 90px !important;
+}
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+    background-color: #2b6cb0 !important;
+    color: white !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+    background-color: #3182ce !important;
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
